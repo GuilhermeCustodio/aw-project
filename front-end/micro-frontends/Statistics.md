@@ -1,1 +1,0 @@
-Este microfrontend será responsável por mostrar aos utilizadores todas as estatísticas relacionadas com as notícias no geral. 
