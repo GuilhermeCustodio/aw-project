@@ -1,0 +1,1 @@
+Este microfrontend será responsável por mostrar todas as noticias relacionadas com as carnes.

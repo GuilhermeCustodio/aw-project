@@ -1,0 +1,1 @@
+Este microfrontend será responsável por mostrar toda a informação relacionada com carnes num mercado específico. Este microfrontend irá englobar também informação específica sobre as carnes e feedback das mesmas.

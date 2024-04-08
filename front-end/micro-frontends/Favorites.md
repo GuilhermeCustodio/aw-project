@@ -1,0 +1,1 @@
+Este microfrontend será responsável por mostrar aos utilizadores quais são as suas carnes favoritas.

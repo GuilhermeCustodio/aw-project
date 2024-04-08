@@ -1,0 +1,1 @@
+Este microfrontend será responsável por apresentar ao utilizador as carnes mais bem classificadas na aplicação e irá permitir ao utilizador procurar supermercados em especifico.

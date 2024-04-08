@@ -1,0 +1,1 @@
+Este microfrontend é responsável por permitir aos utilizadores se logarem na aplicação de modo a poderem ver os seus favoritos. 
