@@ -1,0 +1,4 @@
+{
+    - News.bigNew,
+    - News.listNews
+}

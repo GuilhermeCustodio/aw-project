@@ -1,0 +1,4 @@
+{
+    - Main.availableMarkets,
+    - Main.highlights
+}
