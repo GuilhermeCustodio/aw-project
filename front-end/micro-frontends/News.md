@@ -1,1 +1,1 @@
-Este microfrontend será responsável por mostrar todas as noticias relacionadas com as carnes. Irá também mostrar as estatisticas relacionadas com as notícias.
+Este microfrontend será responsável por mostrar todas as noticias relacionadas com as carnes. Irá também mostrar as estatísticas relacionadas com as notícias.
