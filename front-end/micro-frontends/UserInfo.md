@@ -1,6 +1,6 @@
 ### UserInfo
 
-Este micro frontend irá ser responsável por mostrar as informações gerais do utilizador que está logado, terminar sessão e alterar informações sobre a conta.
+Este micro-frontend irá ser responsável por mostrar as informações gerais do utilizador que está logado, terminar sessão e alterar informações sobre a conta.
 
 ### Motivos
 
