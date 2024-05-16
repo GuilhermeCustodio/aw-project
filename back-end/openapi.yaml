@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: QRMeat
   description: |-
-    TODO
+    QRMeat API specification
   version: 1.0.11
 servers:
   - url: api
@@ -408,7 +408,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/appConfig'
+                $ref: '#/components/schemas/AppConfig'
         '400':
           description: Invalid input
         '422':
@@ -424,7 +424,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/appConfig'
+              $ref: '#/components/schemas/AppConfig'
       
       responses:
         '200':
@@ -432,33 +432,148 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/appConfig'
+                $ref: '#/components/schemas/AppConfig'
 components:
   schemas:
     NewsList:
-      type: object
+      type: array
+      items:
+        $ref: '#/components/schemas/News'
     News:
       type: object
+      properties:
+        image:
+          type: string
+          format: uri
+          description: URL of the image associated with the news.
+        text:
+          type: string
+          description: Text content of the news.
     Stats:
       type: object
+      properties:
+        values:
+          type: object
+          properties:
+            positive:
+              type: array
+              items:
+                type: number
+            negative:
+              type: array
+              items:
+                type: number
     MarketList:
-      type: object
+      type: array
+      items:
+        $ref: '#/components/schemas/Market'
     Market:
       type: object
+      properties:
+        name:
+          type: string
+          description: The name of the market.
+        location:
+          type: string
+          description: The location of the market.
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/Categories'
     Categories:
-      type: object
+      type: string
+      enum:
+        - Chicken
+        - Cow
+        - Pig
+        - Lamb
+        - Goat
+        - Exotic Meats
+      description: Enum representing categories of meat.
     ProductList:
-      type: object
+      type: array
+      items:
+        $ref: '#/components/schemas/Product'
     Product:
       type: object
+      properties:
+        name:
+          type: string
+          description: The name of the meat.
+        price_per_kilo:
+          type: number
+          description: The price per kilogram of the meat.
+        location:
+          type: string
+          description: markets location.
+        details:
+          type: string
+          description: Short details about the product.
+        full_details:
+          type: string
+          description: Detailed description of the product.
     FeedbackList:
-      type: object
+      type: array
+      items:
+        $ref: '#/components/schemas/Feedback'
     Feedback:
       type: object
+      properties:
+        username:
+          type: string
+          description: The name of the person giving feedback.
+        star_review:
+          type: integer
+          minimum: 1
+          maximum: 5
+          description: The star review rating given by the person, ranging from 1 to 5.
     Saved:
-      type: object
+      type: array
+      items:
+        $ref: '#/components/schemas/Product'
     User:
       type: object
-    appConfig:
+      properties:
+        username:
+          type: string
+          description: The name of the user.
+        email:
+          type: string
+          format: email
+          description: The email address of the user.
+      required:
+        - name
+        - email
+        
+    AppConfig:
       type: object
+      properties:
+        theme:
+          type: string
+          description: The theme of the app (e.g., light, dark).
+        language:
+          type: string
+          description: The default language of the app.
+        notifications:
+          type: boolean
+          description: Enable or disable notifications.
+        analytics:
+          type: boolean
+          description: Enable or disable analytics tracking.
+        auto_update:
+          type: boolean
+          description: Enable or disable automatic app updates.
+        data_storage:
+          type: string
+          enum:
+            - local
+            - cloud
+          description: The preferred method of data storage (e.g., local storage, cloud storage).
+      required:
+        - theme
+        - language
+        - notifications
+        - analytics
+        - auto_update
+        - data_storage
 
