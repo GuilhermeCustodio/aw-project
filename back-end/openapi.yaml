@@ -452,17 +452,14 @@ components:
     Stats:
       type: object
       properties:
-        values:
-          type: object
-          properties:
-            positive:
-              type: array
-              items:
-                type: number
-            negative:
-              type: array
-              items:
-                type: number
+        positive:
+          type: array
+          items:
+            type: number
+        negative:
+          type: array
+          items:
+            type: number
     MarketList:
       type: array
       items:
@@ -484,8 +481,8 @@ components:
       type: string
       enum:
         - Chicken
-        - Cow
-        - Pig
+        - Beef
+        - Pork
         - Lamb
         - Goat
         - Exotic Meats
@@ -542,7 +539,7 @@ components:
           format: email
           description: The email address of the user.
       required:
-        - name
+        - username
         - email
         
     AppConfig:
