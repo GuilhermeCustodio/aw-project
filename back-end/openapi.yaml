@@ -8,30 +8,30 @@ servers:
   - url: api
 tags:
   - name: News
-    description: Everything about your Pets
+    description: Everything related with news
   - name: Stats
-    description: Access to Petstore orders
+    description: Global stats about meat
   - name: Market
-    description: Operations about user
+    description: Market operations 
   - name: Product In Market
-    description: TODO
+    description: Operations between market and products
   - name: Product
-    description: TODO
+    description: Everything related with meats in the app
   - name: Feedback
-    description: TODO
+    description: Feedback of the meats
   - name: Saved
-    description: TODO
+    description: Stored meats from the user
   - name: User
-    description: TODO
+    description: Informations about the user
   - name: App Config
-    description: TODO
+    description: App configuration
 paths:
   /news/trending:
     get:
       tags:
         - News
-      summary: TODO
-      description: TODO
+      summary: get the trending news
+      description: ''
       operationId: getTrendingNews
       responses:
         '200':
@@ -40,7 +40,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NewsList'          
-    
         '404':
           description: News not found
      
@@ -48,8 +47,8 @@ paths:
     get:
       tags:
         - News
-      summary: TODO
-      description: TODO
+      summary: Get a specific new
+      description: ''
       operationId: getNewsByID
       parameters:
         - name: id
@@ -59,6 +58,7 @@ paths:
           explode: true
           schema:
             type: integer
+            example: 54319
       responses:
         '200':
           description: successful operation
@@ -72,8 +72,8 @@ paths:
     get:
       tags:
         - Stats
-      summary: TODO
-      description: TODO
+      summary: Get Stats
+      description: 'Get all stats, positive or negative, of the meats in the app this operation returns Stats Object'
       operationId: getStats
       responses:
         '200':
@@ -88,8 +88,8 @@ paths:
     get:
       tags:
         - Market
-      summary: TODO
-      description: TODO
+      summary: Get markets
+      description: 'Get all market of the aplication this operation returns a List of Markets'
       operationId: getMarkets
       responses:
         '200':
@@ -106,17 +106,18 @@ paths:
     get:
       tags:
         - Market
-      summary: TODO
-      description: ''
-      operationId: TODO
+      summary: get a specific market
+      description: 'The operation returns a specific market related to the Id'
+      operationId: getMarket
       parameters:
         - name: Id
           in: path
-          description: TODO
+          description: The id of the market
           required: true
           schema:
             type: integer
             format: int64
+            example: 54319
       responses:
         '200':
           description: TODO
@@ -131,17 +132,18 @@ paths:
     get:
       tags:
         - Market
-      summary: TODO
-      description: TODO
+      summary: gets the categories of an specific market
+      description: 'Using the market id this operations is able to return all the categories of meats present in the specific market'
       operationId: getMarketCategories
       parameters:
         - name: Id
           in: path
-          description: TODO
+          description: The markets Id
           required: true
           schema:
             type: integer
             format: int64
+            example: 54319
       responses:
         '200':
           description: successful operation
@@ -155,24 +157,25 @@ paths:
     get:
       tags:
         - Market
-      summary: TODO
-      description: TODO
-      operationId: getProductsInCategories #OLHAR PARA ISTO MELHOR
+      summary: Gets all the meats present on a market
+      description: 'Returns all the meats/Products present on a specific market and from a meat category'
+      operationId: getProductsInCategories 
       parameters:
         - name: Id
           in: path
-          description: TODO
+          description: The markets Id
           required: true
           schema:
             type: integer
             format: int64
+            example: 54319
         - name: categoryID
           in: path
-          description: TODO
+          description: The Id of the Category
           required: true
           schema:
-            type: integer
-            format: int64
+            type: string
+            example: "Cow"
       responses:
         '200':
           description: successful operation
@@ -189,24 +192,26 @@ paths:
     get:
       tags:
         - Product In Market
-      summary: TODO
-      description: TODO
-      operationId: getProductsInMarket #OLHAR PARA ISTO MELHOR
+      summary: Get a specific meat that is inside a market 
+      description: 'Using the marketId and ProductId returns a specific meat'
+      operationId: getProductsInMarket
       parameters:
         - name: marketId
           in: path
-          description: TODO
+          description: The market Id
           required: true
           schema:
             type: integer
             format: int64
+            example: 54319
         - name: productId
           in: path
-          description: TODO
+          description: The meat Id
           required: true
           schema:
             type: integer
             format: int64
+            example: 3
       responses:
         '200':
           description: successful operation
@@ -222,17 +227,18 @@ paths:
     get:
       tags:
         - Product
-      summary: TODO
-      description: TODO
-      operationId: getProduct #OLHAR PARA ISTO MELHOR
+      summary: Get a product full details
+      description: 'Using a meatId get all the information related with a meat'
+      operationId: getProduct
       parameters:
         - name: meatId
           in: path
-          description: TODO
+          description: The id of the meat
           required: true
           schema:
             type: integer
             format: int64
+            example: 3
       responses:
         '200':
           description: successful operation
@@ -241,24 +247,25 @@ paths:
               schema:
                 $ref: '#/components/schemas/Product'
         '400':
-          description: Invalid input
+          description: Invalid meat id
         '422':
           description: Validation exception
   /feedback/{meatId}:
     get:
       tags:
         - Feedback
-      summary: TODO
-      description: TODO
-      operationId: getFeedback #OLHAR PARA ISTO MELHOR
+      summary: Get feedback of a meat
+      description: 'Using the meat Id gets all the feedback given by other users on the meat'
+      operationId: getFeedback
       parameters:
         - name: meatId
           in: path
-          description: TODO
+          description: The id of the meat
           required: true
           schema:
             type: integer
             format: int64
+            example: 3
       responses:
         '200':
           description: successful operation
@@ -267,23 +274,24 @@ paths:
               schema:
                 $ref: '#/components/schemas/FeedbackList'
         '400':
-          description: Invalid input
+          description: Invalid meat id
         '422':
           description: Validation exception
     post:
       tags:
         - Feedback
       summary: Create a feedback
-      description: TODO
+      description: 'Using a meat id the user can post his feedback on the meat'
       operationId: createFeedback
       parameters:
         - name: meatId
           in: path
-          description: TODO
+          description: The id of the meat
           required: true
           schema:
             type: integer
             format: int64
+            example: 3
       requestBody:
         description: Created feedback object
         content:
@@ -303,23 +311,25 @@ paths:
       tags:
         - Saved
       summary: Save a feedback
-      description: TODO.
+      description: 'Using a userId and a productId the user can save this product on his personal account'
       operationId: saveProduct
       parameters:
         - name: userId
           in: path
-          description: TODO
+          description: The id of the user currently logged on the app
           required: true
           schema:
             type: integer
             format: int64
+            example: 1
         - name: productId
           in: path
-          description: TODO
+          description: The id of the meat
           required: true
           schema:
             type: integer
             format: int64
+            example: 1
       requestBody:
         description: Created saved object
         content:
@@ -338,16 +348,17 @@ paths:
       tags:
         - Saved
       summary: get the saved Products
-      description: TODO.
+      description: 'Using an userId, the currently logged user can see all the products that he saved'
       operationId: productsSaved
       parameters:
         - name: userId
           in: path
-          description: TODO
+          description:  The id of the user currently logged on the app
           required: true
           schema:
             type: integer
             format: int64
+            example: 1
       responses:
         default:
           description: successful operation
@@ -361,16 +372,17 @@ paths:
       tags:
         - User
       summary: Gets the informations of the logged user
-      description: TODO
+      description: 'Using a userId, the currently logged user can acess all informations related with the application'
       operationId: usersInfo
       parameters:
         - name: userId
           in: path
-          description: TODO
+          description: The id of the user currently logged on the app
           required: true
           schema:
             type: integer
             format: int64
+            example: 1
       responses:
         '200':
           description: Successful operation
@@ -388,7 +400,7 @@ paths:
       tags:
         - App Config
       summary: gets apps configuration
-      description: ''
+      description: 'Gets the app configuration'
       operationId: appConfig
       responses:
         '200':
@@ -405,7 +417,7 @@ paths:
       tags:
         - App Config
       summary: posts the new configuration for the app
-      description: ''
+      description: 'Saves the app configuration'
       operationId: newAppConfig
       requestBody:
         description: Created new config object
