@@ -102,7 +102,7 @@ paths:
           description: No Markets were found
 
     
-  /markets/{Id}:
+  /markets/{market_id}:
     get:
       tags:
         - Market
@@ -110,7 +110,7 @@ paths:
       description: 'The operation returns a specific market related to the Id'
       operationId: getMarket
       parameters:
-        - name: Id
+        - name: market_id
           in: path
           description: The id of the market
           required: true
@@ -128,7 +128,7 @@ paths:
         '404':
           description: Market not found
 
-  /markets/{Id}/categories:
+  /markets/{market_id}/categories:
     get:
       tags:
         - Market
@@ -136,7 +136,7 @@ paths:
       description: 'Using the market id this operations is able to return all the categories of meats present in the specific market'
       operationId: getMarketCategories
       parameters:
-        - name: Id
+        - name: market_id
           in: path
           description: The markets Id
           required: true
@@ -153,7 +153,7 @@ paths:
                 $ref: '#/components/schemas/Categories'
         '404':
           description: No Categories were found
-  /markets/{Id}/categories/{categoryID}:
+  /markets/{market_id}/categories/{categoryID}:
     get:
       tags:
         - Market
@@ -161,7 +161,7 @@ paths:
       description: 'Returns all the meats/Products present on a specific market and from a meat category'
       operationId: getProductsInCategories 
       parameters:
-        - name: Id
+        - name: market_id
           in: path
           description: The markets Id
           required: true
@@ -306,43 +306,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/Feedback'
        
-  /saved/{userId}/{productId}:
-    post:
-      tags:
-        - Saved
-      summary: Save a feedback
-      description: 'Using a userId and a productId the user can save this product on his personal account'
-      operationId: saveProduct
-      parameters:
-        - name: userId
-          in: path
-          description: The id of the user currently logged on the app
-          required: true
-          schema:
-            type: integer
-            format: int64
-            example: 1
-        - name: productId
-          in: path
-          description: The id of the meat
-          required: true
-          schema:
-            type: integer
-            format: int64
-            example: 1
-      requestBody:
-        description: Created saved object
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Saved'
-      responses:
-        default:
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Saved'
   /saved/{userId}:
     get:
       tags:
@@ -359,6 +322,34 @@ paths:
             type: integer
             format: int64
             example: 1
+      responses:
+        default:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductList'
+    post:
+      tags:
+        - Saved
+      summary: Save a feedback
+      description: 'Using a userId and a productId the user can save this product on his personal account'
+      operationId: saveProduct
+      parameters:
+        - name: userId
+          in: path
+          description: The id of the user currently logged on the app
+          required: true
+          schema:
+            type: integer
+            format: int64
+            example: 1
+      requestBody:
+        description: Created saved object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
       responses:
         default:
           description: successful operation
@@ -442,13 +433,19 @@ components:
     News:
       type: object
       properties:
+        id:
+          type: number
         image:
           type: string
           format: uri
           description: URL of the image associated with the news.
+        title:
+          type: string
         text:
           type: string
           description: Text content of the news.
+        date:
+          type: string
     Stats:
       type: object
       properties:
@@ -484,7 +481,9 @@ components:
         - Beef
         - Pork
         - Lamb
+        - Turkey
         - Goat
+        - Ready to cook
         - Exotic Meats
       description: Enum representing categories of meat.
     ProductList:
@@ -494,6 +493,8 @@ components:
     Product:
       type: object
       properties:
+        id:
+          type: number
         name:
           type: string
           description: The name of the meat.
@@ -524,10 +525,6 @@ components:
           minimum: 1
           maximum: 5
           description: The star review rating given by the person, ranging from 1 to 5.
-    Saved:
-      type: array
-      items:
-        $ref: '#/components/schemas/Product'
     User:
       type: object
       properties:
