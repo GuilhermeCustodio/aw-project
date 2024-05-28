@@ -43,7 +43,7 @@ paths:
         '404':
           description: News not found
      
-  /news/{id}:
+  /news/{news_id}:
     get:
       tags:
         - News
@@ -51,7 +51,7 @@ paths:
       description: ''
       operationId: getNewsByID
       parameters:
-        - name: id
+        - name: news_id
           in: path
           description: Status values that need to be considered for filter
           required: true
